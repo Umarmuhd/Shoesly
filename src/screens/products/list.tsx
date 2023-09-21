@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { Bag2, Setting4 } from 'iconsax-react-native';
 import React, { useEffect, useState } from 'react';
 
@@ -21,33 +21,29 @@ import { ProductCard } from './card';
 
 export const Discover = () => {
   const [productsList, setProductsList] = useState<Product[]>([]);
-  // const [isInitialLoad, setIsInitialLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   // const [limit, setLimit] = useState<number>(5);
 
   useEffect(() => {
+    const collectionRef = collection(db, 'products');
     const fetchData = async () => {
-      setIsLoading(true);
-      onSnapshot(
-        collection(db, 'products'),
-        (snapshot) => {
-          const result = snapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }));
-          setProductsList(result as Product[]);
-          setIsLoading(false);
-        },
-        (err) => {
-          console.log(err);
-          setError('Error fetching data!');
-        },
-        () => {
-          console.log('completed');
-        }
-      );
+      try {
+        setIsLoading(true);
+        const data = await getDocs(collectionRef);
+        const result = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setProductsList(result as Product[]);
+      } catch (err) {
+        console.log(err);
+        setError('Error fetching data!');
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetchData();
   }, []);
 

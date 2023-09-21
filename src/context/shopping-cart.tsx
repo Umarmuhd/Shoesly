@@ -37,10 +37,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   //   []
   // )
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  console.log(
-    '🚀 ~ file: shopping-cart.tsx:40 ~ ShoppingCartProvider ~ cartItems:',
-    cartItems
-  );
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,

@@ -19,7 +19,11 @@ import { SortByFilter } from './filters/sort-by';
 
 const brands = [
   { id: '1', name: 'Jordan', logo: '@/images/brands/jordan.svg' },
-  { id: '2', name: 'Nike', logo: '@/images/brands/nike.svg' },
+  {
+    id: '2',
+    name: 'Nike',
+    logo: 'https://firebasestorage.googleapis.com/v0/b/shoesly-app.appspot.com/o/brands%2Fnike.svg?alt=media',
+  },
   { id: '3', name: 'Puma', logo: '@/images/brands/puma.svg' },
   { id: '4', name: 'Adidas', logo: '@/images/brands/adidas.svg' },
   { id: '5', name: 'Reebok', logo: '@/images/brands/reebok.svg' },
@@ -75,6 +79,55 @@ const colorsFilters = [
   },
 ];
 
+interface ProductState {
+  byStock: boolean;
+  byFastDelivery: boolean;
+  byRating: number;
+  searchQuery: string;
+  sort: string;
+  sortBy: string;
+}
+
+type ProductAction =
+  | { type: 'SORT_BY'; payload: string }
+  | { type: 'SORT_BY_PRICE'; payload: string }
+  | { type: 'FILTER_BY_STOCK' }
+  | { type: 'FILTER_BY_DELIVERY' }
+  | { type: 'FILTER_BY_RATING'; payload: number }
+  | { type: 'FILTER_BY_SEARCH'; payload: string }
+  | { type: 'CLEAR_FILTERS' };
+
+export const productReducer = (
+  state: ProductState,
+  action: ProductAction
+): ProductState => {
+  switch (action.type) {
+    case 'SORT_BY':
+      return { ...state, sortBy: action.payload };
+    case 'SORT_BY_PRICE':
+      return { ...state, sort: action.payload };
+    case 'FILTER_BY_STOCK':
+      return { ...state, byStock: !state.byStock };
+    case 'FILTER_BY_DELIVERY':
+      return { ...state, byFastDelivery: !state.byFastDelivery };
+    case 'FILTER_BY_RATING':
+      return { ...state, byRating: action.payload };
+    case 'FILTER_BY_SEARCH':
+      return { ...state, searchQuery: action.payload };
+    case 'CLEAR_FILTERS':
+      return {
+        byStock: false,
+        byFastDelivery: false,
+        byRating: 0,
+        searchQuery: '',
+        sort: '',
+        sortBy: '',
+      };
+    default:
+      return state;
+  }
+};
+
 const ProductsFilterScreen = () => {
   const { goBack } = useNavigation();
   const [activeGender, setActiveGender] = useState(genders[0].id);
@@ -82,10 +135,19 @@ const ProductsFilterScreen = () => {
   const [color, setColor] = useState(colorsFilters[0].id);
   // const [multiSliderValue, setMultiSliderValue] = React.useState([3, 7]);
 
+  // const [state, dispatch] = useReducer(productReducer, {
+  //   byStock: false,
+  //   byFastDelivery: false,
+  //   byRating: 0,
+  //   searchQuery: '',
+  //   sort: '',
+  //   sortBy: '',
+  // });
+
   return (
     <View className="flex-1 bg-white px-6">
-      <View className="mt-2.5 flex flex-row items-center justify-between">
-        <Pressable onPress={goBack} className="p-2">
+      <View className="mt-4 flex flex-row items-center justify-between">
+        <Pressable onPress={goBack} className="">
           <ArrowLeft size="24" color={colors.dark.DEFAULT} />
         </Pressable>
         <View>

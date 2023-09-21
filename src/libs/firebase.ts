@@ -4,7 +4,7 @@ import { initializeApp } from 'firebase/app';
 // import {...} from "firebase/database";
 import { collection, getFirestore } from 'firebase/firestore';
 // import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
+import { getStorage } from 'firebase/storage';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -27,3 +27,6 @@ export const db = getFirestore(app);
 export const database = {
   products: collection(db, 'products'),
 };
+
+// Initialize Cloud Storage and get a reference to the service
+export const storage = getStorage(app);
