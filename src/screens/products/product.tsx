@@ -75,15 +75,15 @@ export const Product = () => {
     <BottomSheetModalProvider>
       <View className="min-h-screen flex-1 bg-white px-6">
         <FocusAwareStatusBar />
-        <View className="mt-2.5 flex flex-row items-center justify-between">
-          <Pressable onPress={goBack} className="p-2">
+        <View className="mt-4 flex flex-row items-center justify-between">
+          <Pressable onPress={goBack} className="">
             <ArrowLeft size="24" color={colors.dark.DEFAULT} />
           </Pressable>
           <Pressable
             onPress={() => {
               navigate('Cart');
             }}
-            className="p-2"
+            className=""
           >
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
@@ -199,7 +199,9 @@ export const Product = () => {
               <View className="">
                 <TouchableOpacity
                   className="flex flex-row items-center rounded-full border border-light-200 bg-transparent py-4 px-[42.5px]"
-                  onPress={() => {}}
+                  onPress={() => {
+                    navigate('Discover');
+                  }}
                   activeOpacity={0.6}
                 >
                   <Text
@@ -214,7 +216,9 @@ export const Product = () => {
               <View>
                 <TouchableOpacity
                   className="flex flex-row items-center rounded-full bg-dark py-4 px-[54px]"
-                  onPress={() => {}}
+                  onPress={() => {
+                    navigate('Cart');
+                  }}
                   activeOpacity={0.6}
                 >
                   <Text

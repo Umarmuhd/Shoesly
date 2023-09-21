@@ -39,7 +39,7 @@ export const ProductReviewsScreen = () => {
   const { goBack } = useNavigation();
   return (
     <View className="min-h-screen bg-white px-6">
-      <View className="mt-2.5 flex flex-row items-center justify-between">
+      <View className="mt-4 flex flex-row items-center justify-between">
         <Pressable onPress={goBack} className="">
           <ArrowLeft size="24" color={colors.dark.DEFAULT} />
         </Pressable>

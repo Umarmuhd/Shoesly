@@ -1,21 +1,33 @@
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeft, Trash } from 'iconsax-react-native';
 import React from 'react';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { Alert, StyleSheet } from 'react-native';
+import Swipelist from 'react-native-swipeable-list-view';
 
 import { colors, Image, Pressable, Text, TouchableOpacity, View } from '@/ui';
 import { CounterInput } from '@/ui/core/input/counter-input';
 
-const listViewData = Array(5)
-  .fill('')
-  .map((_, i) => ({ key: `${i}`, text: `item #${i}` }));
+const data = [
+  {
+    name: 'Javascript',
+  },
+  {
+    name: 'React Native',
+  },
+  {
+    name: 'Swift',
+  },
+];
 
 // eslint-disable-next-line max-lines-per-function
 export default function CartScreen() {
   const { goBack, navigate } = useNavigation();
   return (
-    <View className="flex-1 bg-white px-6">
-      <View className="mt-2.5 flex flex-row items-center justify-between">
+    <View
+      className="min-h-screen flex-1 bg-white px-6"
+      style={{ maxWidth: '100%' }}
+    >
+      <View className="mt-4 flex flex-row items-center justify-between">
         <Pressable onPress={goBack} className="">
           <ArrowLeft size="24" color={colors.dark.DEFAULT} />
         </Pressable>
@@ -24,11 +36,11 @@ export default function CartScreen() {
         </View>
         <View />
       </View>
-      <View className="mt-[30px] bg-fuchsia-500">
-        <SwipeListView
-          data={listViewData}
-          renderItem={(_) => (
-            <View className="flex flex-row gap-4 bg-white">
+      <View className="mt-[30px]">
+        <Swipelist
+          data={data}
+          renderRightItem={(data, index) => (
+            <View key={index} className="my-2.5 flex flex-row">
               <View className="relative h-[88px] w-[88px] overflow-hidden rounded-[20px] object-cover">
                 <Image
                   source={{
@@ -37,7 +49,7 @@ export default function CartScreen() {
                   className="relative h-full w-full object-cover"
                 />
               </View>
-              <View className=" bg-green-400">
+              <View className="ml-4 flex flex-1">
                 <View className="mb-2.5">
                   <Text className="mb-[5px] font-semibold text-dark">
                     Jordan 1 Retro High Tie Dye
@@ -66,7 +78,7 @@ export default function CartScreen() {
                     </Text>
                   </View>
                 </View>
-                <View className="flex flex-row items-center justify-between">
+                <View className="flex w-full max-w-[100%] flex-row items-center justify-between pr-[30px]">
                   <Text variant="sm" className="text-dark" weight="bold">
                     $235.00
                   </Text>
@@ -77,18 +89,20 @@ export default function CartScreen() {
               </View>
             </View>
           )}
-          renderHiddenItem={(_) => (
-            <View className="w-full bg-red-400 py-8 px-7">
-              <Pressable onPress={() => {}}>
-                <Trash size="24" color={colors.light.DEFAULT} />
-              </Pressable>
+          renderHiddenItem={(data, index) => (
+            <View key={index} className="flex flex-row">
+              <TouchableOpacity
+                style={[styles.rightAction, { backgroundColor: 'red' }]}
+                onPress={() => {
+                  Alert.alert('Delete?', data.name);
+                }}
+                className="h-full rounded-l-[20px]"
+              >
+                <Trash size={25} color={colors.light.DEFAULT} />
+              </TouchableOpacity>
             </View>
           )}
-          leftOpenValue={-75}
-          rightOpenValue={75}
-          className="w-full bg-yellow-500"
-          // eslint-disable-next-line react/no-unstable-nested-components
-          ItemSeparatorComponent={() => <View className="h-4" />}
+          rightOpenValue={80}
         />
       </View>
       <View className="mt-auto mb-0 flex flex-row justify-between bg-white py-4">
@@ -121,3 +135,24 @@ export default function CartScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {},
+
+  rightAction: {
+    width: '100%',
+    marginVertical: 10,
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ffffff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+});
