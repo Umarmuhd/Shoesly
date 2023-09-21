@@ -7,6 +7,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { doc, getDoc } from 'firebase/firestore';
 import { ArrowLeft, Bag2 } from 'iconsax-react-native';
 import * as React from 'react';
+import { StyleSheet } from 'react-native';
 
 import type { Product } from '@/api/products/types';
 import { useShoppingCart } from '@/context/shopping-cart';
@@ -18,6 +19,7 @@ import type { RouteProp } from '@/navigation/types';
 import {
   ActivityIndicator,
   FocusAwareStatusBar,
+  Image,
   Pressable,
   Text,
   TouchableOpacity,
@@ -28,6 +30,8 @@ import colors from '@/ui/theme/colors';
 import ProductReviewsList from '../reviews/review-list';
 import { AddItemToCart } from './components/add-to-cart';
 import { AddedToCart } from './components/added-to-cart';
+
+const IMAGE_WIDTH = 290;
 
 export const ProductScreen = () => {
   const { params } = useRoute<RouteProp<'Product'>>();
@@ -106,14 +110,19 @@ export const ProductScreen = () => {
           <Pressable onPress={goBack} className="">
             <ArrowLeft size="24" color={colors.dark.DEFAULT} />
           </Pressable>
-          <Pressable
-            onPress={() => {
-              navigate('Cart');
-            }}
-            className=""
-          >
+          <Pressable onPress={() => navigate('Cart')}>
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
+        </View>
+        <View className="relative">
+          <Image
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              height: IMAGE_WIDTH / 1.6,
+            }}
+            source={product?.image}
+            className="w-full"
+          />
         </View>
         <View className="mt-[30px] flex flex-col space-y-[30px]">
           <View className="">

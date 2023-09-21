@@ -75,12 +75,7 @@ export const Discover = () => {
           <Text variant="h1" className="" weight="bold">
             Discover
           </Text>
-          <Pressable
-            onPress={() => {
-              navigate('Cart');
-            }}
-            className="relative"
-          >
+          <Pressable onPress={() => navigate('Cart')} className="relative">
             <View className="absolute top-1 right-0 z-10 h-2 w-2 rounded-full bg-danger" />
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
