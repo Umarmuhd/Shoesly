@@ -1,11 +1,27 @@
 import React from 'react';
 
-import { Text, View } from '@/ui';
+import { Image, Text, View } from '@/ui';
 
-export function ProductReviewCard({ content }: { content: string }) {
+export function ProductReviewCard({
+  content,
+  user,
+}: {
+  content: string;
+  user: {
+    name: string;
+    avatar: string;
+  };
+}) {
   return (
-    <View className="h-5 w-5">
-      <Text>{content}</Text>
+    <View className="flex w-full flex-row">
+      <View>
+        <Image source={user.avatar} />
+      </View>
+      <View>
+        <Text variant="sm" className="text-dark">
+          {content}
+        </Text>
+      </View>
     </View>
   );
 }

@@ -12,11 +12,11 @@ const listViewData = Array(5)
 
 // eslint-disable-next-line max-lines-per-function
 export default function CartScreen() {
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
   return (
     <View className="flex-1 bg-white px-6">
       <View className="mt-2.5 flex flex-row items-center justify-between">
-        <Pressable onPress={goBack} className="p-2">
+        <Pressable onPress={goBack} className="">
           <ArrowLeft size="24" color={colors.dark.DEFAULT} />
         </Pressable>
         <View>
@@ -67,7 +67,7 @@ export default function CartScreen() {
                   </View>
                 </View>
                 <View className="flex flex-row items-center justify-between">
-                  <Text variant="sm" className="font-bold text-dark">
+                  <Text variant="sm" className="text-dark" weight="bold">
                     $235.00
                   </Text>
                   <View>
@@ -96,19 +96,22 @@ export default function CartScreen() {
           <Text variant="xs" className="mb-[5px] text-light-300">
             Grand Total
           </Text>
-          <Text variant="xl" className="font-bold text-dark">
+          <Text variant="xl" className="text-dark" weight="bold">
             $235.00
           </Text>
         </View>
         <View>
           <TouchableOpacity
             className="flex flex-row items-center rounded-full bg-dark py-4 px-8"
-            onPress={() => {}}
+            onPress={() => {
+              navigate('OrderSummary', { id: 'orderSummary' });
+            }}
             activeOpacity={0.6}
           >
             <Text
               variant="sm"
-              className="mx-auto font-bold uppercase text-light"
+              className="mx-auto uppercase text-light"
+              weight="bold"
             >
               Check out
             </Text>

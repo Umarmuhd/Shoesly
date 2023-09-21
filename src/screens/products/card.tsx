@@ -22,12 +22,14 @@ export const ProductCard = ({ name, price, onPress = () => {} }: Props) => {
         </Text>
         <View className="flex flex-row space-x-[5px]">
           <Star width={12} height={12} fill={'#FCD240'} />
-          <Text className="text-[11px] font-bold leading-[14px]">4.5</Text>
+          <Text className="text-[11px] leading-[14px]" weight="bold">
+            4.5
+          </Text>
           <Text className="text-[11px] leading-[14px] !text-light-300">
             (1045 Reviews)
           </Text>
         </View>
-        <Text variant="sm" className="font-bold" numberOfLines={1}>
+        <Text variant="sm" className="" weight="bold" numberOfLines={1}>
           ${price}
         </Text>
       </View>

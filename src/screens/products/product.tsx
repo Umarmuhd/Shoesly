@@ -73,7 +73,7 @@ export const Product = () => {
 
   return (
     <BottomSheetModalProvider>
-      <View className="flex-1 bg-white px-6">
+      <View className="min-h-screen flex-1 bg-white px-6">
         <FocusAwareStatusBar />
         <View className="mt-2.5 flex flex-row items-center justify-between">
           <Pressable onPress={goBack} className="p-2">
@@ -89,8 +89,8 @@ export const Product = () => {
           </Pressable>
         </View>
         <View className="mt-[30px] flex flex-col space-y-[30px]">
-          <View className="font-bold">
-            <Text className="mb-2.5 text-xl font-semibold">
+          <View className="">
+            <Text className="mb-2.5 text-xl" weight="bold">
               Jordan 1 Retro High Tie DyeText
             </Text>
             <View className="flex flex-row space-x-[5px] text-cyan-700">
@@ -100,8 +100,10 @@ export const Product = () => {
               <Star width={12} height={12} fill={'#FCD240'} />
               <Star width={12} height={12} fill={'#F3F3F3'} />
 
-              <Text className="text-[11px] font-bold leading-[14px]">4.5</Text>
-              <Text className="text-[11px] leading-[14px] !text-light-300">
+              <Text className="text-[11px] leading-[14px]" weight="bold">
+                4.5
+              </Text>
+              <Text className="text-[11px] leading-[14px] text-light-300">
                 (1045 Reviews)
               </Text>
             </View>
@@ -121,22 +123,23 @@ export const Product = () => {
               technologies for a pair.
             </Text>
           </View>
-          <View className="">
+          <View className="flex">
             <Text variant="md" className="mb-2.5 font-semibold">
               Review (1045)
             </Text>
-            <View>
+            <View className="h-80">
               <ProductReviewsList />
               <TouchableOpacity
                 className="flex flex-row items-center rounded-full border border-light-200 py-4"
                 onPress={() => {
-                  navigate('ProductReviews', { id: params.id });
+                  navigate('ProductReviews', { id: 'params.id' });
                 }}
                 activeOpacity={0.6}
               >
                 <Text
                   variant="sm"
-                  className="mx-auto font-bold uppercase text-dark"
+                  className="mx-auto uppercase text-dark"
+                  weight="bold"
                 >
                   See All Review
                 </Text>
@@ -146,10 +149,14 @@ export const Product = () => {
         </View>
         <View className="mt-auto mb-0 flex flex-row justify-between bg-white py-4">
           <View className="flex flex-col">
-            <Text variant="xs" className="mb-[5px] text-light-300">
+            <Text
+              variant="xs"
+              className="mb-[5px] text-light-300"
+              weight="bold"
+            >
               Price
             </Text>
-            <Text variant="xl" className="font-bold text-dark">
+            <Text variant="xl" className="text-dark" weight="bold">
               $235.00
             </Text>
           </View>
@@ -161,7 +168,8 @@ export const Product = () => {
             >
               <Text
                 variant="sm"
-                className="mx-auto font-bold uppercase text-light"
+                className="mx-auto uppercase text-light"
+                weight="bold"
               >
                 ADD TO CART
               </Text>
@@ -182,7 +190,7 @@ export const Product = () => {
               />
             </View>
             <View className="mb-[30px] flex w-full flex-col items-center gap-[5px]">
-              <Text className="text-2xl font-bold text-dark">
+              <Text className="text-2xl text-dark" weight="bold">
                 Added to cart
               </Text>
               <Text variant="sm">1 Item Total</Text>
@@ -196,7 +204,8 @@ export const Product = () => {
                 >
                   <Text
                     variant="sm"
-                    className="mx-auto font-bold uppercase text-dark"
+                    className="mx-auto uppercase text-dark"
+                    weight="bold"
                   >
                     Back Explore
                   </Text>
@@ -210,7 +219,8 @@ export const Product = () => {
                 >
                   <Text
                     variant="sm"
-                    className="mx-auto font-bold uppercase text-light"
+                    className="mx-auto uppercase text-light"
+                    weight="bold"
                   >
                     To Cart
                   </Text>
@@ -220,14 +230,20 @@ export const Product = () => {
           </View>
           {/* <View className="flex-1 px-6">
             <View className="mb-[30px] flex w-full flex-row justify-between">
-              <Text variant="xl" className="text-dark font-bold">
+              <Text variant="xl" className="text-dark"
+              weight="bold"
+              
+              >
                 Add to cart
               </Text>
               <Pressable onPress={() => {}} className="rotate-45 p-2">
                 <Add size="18" color={colors.dark.DEFAULT} />
               </Pressable>
             </View>
-            <Text variant="sm" className="text-dark mb-2.5 font-bold">
+            <Text variant="sm" className="text-dark mb-2.5"
+              weight="bold"
+            
+            >
               Quantity
             </Text>
             <View className="relative mb-[30px]">
@@ -247,7 +263,10 @@ export const Product = () => {
                 <Text variant="xs" className="text-light-300 mb-[5px]">
                   Price
                 </Text>
-                <Text variant="xl" className="text-dark font-bold">
+                <Text variant="xl" className="text-dark"
+              weight="bold"
+                
+                >
                   $235.00
                 </Text>
               </View>
@@ -259,7 +278,9 @@ export const Product = () => {
                 >
                   <Text
                     variant="sm"
-                    className="text-light mx-auto font-bold uppercase"
+                    className="text-light mx-auto uppercase"
+              weight="bold"
+
                   >
                     ADD TO CART
                   </Text>

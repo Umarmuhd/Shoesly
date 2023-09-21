@@ -36,7 +36,7 @@ export function ProductItem(product: Product) {
             Qty 1
           </Text>
         </View>
-        <Text variant="sm" className="font-bold leading-6">
+        <Text variant="sm" className="leading-6" weight="bold">
           ${price}.00
         </Text>
       </View>

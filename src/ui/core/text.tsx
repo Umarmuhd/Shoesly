@@ -13,11 +13,12 @@ interface Props extends TextProps {
   variant?: keyof typeof textVariants;
   className?: string;
   tx?: TxKeyPath;
+  weight?: 'bold' | 'normal';
 }
 
 export const textVariants = {
   defaults: 'text-base text-dark dark:text-white font-urbanist font-normal',
-  h1: 'text-[30px] leading-[45px] font-bold',
+  h1: 'text-[30px] leading-[45px]',
   h2: 'text-[28px] leading-[42px] font-medium',
   h3: 'text-[24px] leading-[36px] font-medium',
   xl: 'text-[20px] leading-[30px]',
@@ -31,6 +32,7 @@ export const textVariants = {
 export const Text = ({
   variant = 'md',
   className = '',
+  weight = 'normal',
   style,
   tx,
   children,
@@ -45,6 +47,7 @@ export const Text = ({
       ${className}
     `}
       style={StyleSheet.flatten([
+        { fontFamily: weight === 'bold' ? 'UrbanistBold' : 'Urbanist' },
         { writingDirection: isRTL ? 'rtl' : 'ltr' },
         style,
       ])}

@@ -1,6 +1,8 @@
 import 'react-native-gesture-handler';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -16,6 +18,14 @@ loadSelectedTheme();
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
+  let [fontsLoaded] = useFonts({
+    UrbanistBold: require('../assets/fonts/UrbanistBold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <BottomSheetModalProvider>

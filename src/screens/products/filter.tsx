@@ -117,7 +117,8 @@ const ProductsFilterScreen = () => {
                 <View className="mt-2.5 flex flex-col items-center">
                   <Text
                     variant="sm"
-                    className="font-extrabold uppercase text-dark"
+                    className="uppercase text-dark"
+                    weight="bold"
                   >
                     {brand.name}
                   </Text>
@@ -189,7 +190,8 @@ const ProductsFilterScreen = () => {
           >
             <Text
               variant="sm"
-              className="mx-auto font-bold uppercase text-dark"
+              className="mx-auto uppercase text-dark"
+              weight="bold"
             >
               Reset (4)
             </Text>
@@ -203,7 +205,8 @@ const ProductsFilterScreen = () => {
           >
             <Text
               variant="sm"
-              className="mx-auto font-bold uppercase text-light"
+              className="mx-auto uppercase text-light"
+              weight="bold"
             >
               Apply
             </Text>

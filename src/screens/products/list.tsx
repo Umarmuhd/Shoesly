@@ -122,12 +122,12 @@ export const Discover = () => {
       <FocusAwareStatusBar />
       <View className="mt-[30px] min-h-screen max-w-full px-4">
         <View className="mb-6 flex flex-row items-center justify-between">
-          <Text variant="h1" className="font-bold">
+          <Text variant="h1" className="" weight="bold">
             Discover
           </Text>
           <Pressable
             onPress={() => {
-              // navigate('Cart');
+              navigate('Cart');
             }}
             className="relative"
           >
@@ -144,14 +144,12 @@ export const Discover = () => {
             estimatedItemSize={300}
             numColumns={2}
             // eslint-disable-next-line react/no-unstable-nested-components
-            ItemSeparatorComponent={() => (
-              <View className="h-4 w-4 bg-red-500" />
-            )}
+            ItemSeparatorComponent={() => <View className="h-4 w-4" />}
             showsVerticalScrollIndicator={false}
           />
         </View>
         <TouchableOpacity
-          className="absolute left-1/2 bottom-24 flex -translate-x-1/2 flex-row items-center rounded-full bg-dark py-2.5 px-5"
+          className="absolute bottom-24 flex flex-row items-center rounded-full bg-dark py-2.5 px-5"
           onPress={() => {
             navigate('ProductFilter');
           }}
@@ -160,7 +158,8 @@ export const Discover = () => {
           <Setting4 size={20} color={colors.light.DEFAULT} />
           <Text
             variant="sm"
-            className="mx-auto ml-4 font-bold uppercase text-light"
+            className="mx-auto ml-4 uppercase text-light"
+            weight="bold"
           >
             Filter
           </Text>

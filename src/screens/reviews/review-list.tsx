@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 
@@ -46,9 +46,7 @@ export default function ProductReviewsList() {
     isError: false,
   };
 
-  const { navigate } = useNavigation();
-
-  console.log({ navigate });
+  // const { navigate } = useNavigation();
 
   // const renderItem = React.useCallback(
   //   ({ item }: { item: Review }) => <ProductReviewCard {...item} />,
@@ -64,7 +62,7 @@ export default function ProductReviewsList() {
   }
 
   return (
-    <View className="flex">
+    <View className="flex-1">
       <FlashList
         data={data}
         // renderItem={renderItem}

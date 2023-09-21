@@ -38,9 +38,9 @@ export const ProductReviewsScreen = () => {
   const [activeFilter, setActiveFilter] = useState(filters[0]);
   const { goBack } = useNavigation();
   return (
-    <View className="flex-1 bg-white px-6">
+    <View className="min-h-screen bg-white px-6">
       <View className="mt-2.5 flex flex-row items-center justify-between">
-        <Pressable onPress={goBack} className="p-2">
+        <Pressable onPress={goBack} className="">
           <ArrowLeft size="24" color={colors.dark.DEFAULT} />
         </Pressable>
         <View>
@@ -48,7 +48,7 @@ export const ProductReviewsScreen = () => {
         </View>
         <View className="flex flex-row gap-[5px]">
           <Star width={20} height={20} />
-          <Text variant="sm" className="font-bold text-dark">
+          <Text variant="sm" className="text-dark" weight="bold">
             4.5
           </Text>
         </View>
@@ -65,7 +65,7 @@ export const ProductReviewsScreen = () => {
           )}
         </View>
       </View>
-      <View>
+      <View className="flex-1">
         <ProductReviewsList />
       </View>
     </View>
