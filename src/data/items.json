@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "name": "Nike Running Shoes",
+    "description": "High-performance running shoes designed for comfort and durability.",
+    "price": 89.99,
+    "image": "https://example.com/nike-running-shoes.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Adidas Basketball Sneakers",
+    "description": "Premium basketball sneakers with advanced cushioning and ankle support.",
+    "price": 129.99,
+    "image": "https://example.com/adidas-basketball-sneakers.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Puma Soccer Cleats",
+    "description": "Soccer cleats engineered for speed and precision on the field.",
+    "price": 79.99,
+    "image": "https://example.com/puma-soccer-cleats.jpg"
+  },
+  {
+    "id": "4",
+    "name": "Reebok Fitness Training Shoes",
+    "description": "Versatile training shoes suitable for various workout activities.",
+    "price": 74.99,
+    "image": "https://example.com/reebok-fitness-training-shoes.jpg"
+  },
+  {
+    "id": "5",
+    "name": "Columbia Hiking Boots",
+    "description": "Durable hiking boots for outdoor adventures and rugged terrains.",
+    "price": 109.99,
+    "image": "https://example.com/columbia-hiking-boots.jpg"
+  },
+  {
+    "id": "6",
+    "name": "New Balance Tennis Shoes",
+    "description": "Tennis shoes designed for agility and court performance.",
+    "price": 94.99,
+    "image": "https://example.com/new-balance-tennis-shoes.jpg"
+  },
+  {
+    "id": "7",
+    "name": "FootJoy Golf Shoes",
+    "description": "Premium golf shoes with excellent grip and stability on the golf course.",
+    "price": 119.99,
+    "image": "https://example.com/footjoy-golf-shoes.jpg"
+  },
+  {
+    "id": "8",
+    "name": "Vans Skateboard Shoes",
+    "description": "Skateboarding shoes with reinforced construction for skateboarders.",
+    "price": 69.99,
+    "image": "https://example.com/vans-skateboard-shoes.jpg"
+  },
+  {
+    "id": "9",
+    "name": "Under Armour CrossFit Training Shoes",
+    "description": "CrossFit training shoes for intense workouts and lifting.",
+    "price": 99.99,
+    "image": "https://example.com/under-armour-crossfit-training-shoes.jpg"
+  },
+  {
+    "id": "10",
+    "name": "Mizuno Baseball Cleats",
+    "description": "Baseball cleats designed for speed and performance on the diamond.",
+    "price": 84.99,
+    "image": "https://example.com/mizuno-baseball-cleats.jpg"
+  }
+]

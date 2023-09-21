@@ -130,14 +130,14 @@ const ProductsFilterScreen = () => {
             ))}
           </View>
         </View>
-        <View>
+        {/* <View>
           <Text variant="md" className="mb-5 font-semibold">
             Price Range
           </Text>
           <ScrollView
-          // scrollEnabled={this.state.scrollEnabled}
+          scrollEnabled={this.state.scrollEnabled}
           >
-            {/* <MultiSlider
+            <MultiSlider
               values={[multiSliderValue[0], multiSliderValue[1]]}
               sliderLength={250}
               onValuesChange={multiSliderValuesChange}
@@ -147,9 +147,9 @@ const ProductsFilterScreen = () => {
               allowOverlap
               snapped
               customLabel={CustomLabel}
-            /> */}
+            />
           </ScrollView>
-        </View>
+        </View> */}
         <View>
           <Text variant="md" className="mb-5 font-semibold">
             Sort By

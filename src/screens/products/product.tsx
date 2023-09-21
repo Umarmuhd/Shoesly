@@ -7,12 +7,13 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowLeft, Bag2 } from 'iconsax-react-native';
 import * as React from 'react';
 
+import { useShoppingCart } from '@/context/shopping-cart';
 import Star from '@/images/star.svg';
+import type { RouteProp } from '@/navigation/types';
 // import { usePost } from '@/api';
 import {
   ActivityIndicator,
   FocusAwareStatusBar,
-  Image,
   Pressable,
   Text,
   TouchableOpacity,
@@ -21,14 +22,18 @@ import {
 import colors from '@/ui/theme/colors';
 
 import ProductReviewsList from '../reviews/review-list';
+import { AddItemToCart } from './components/add-to-cart';
+import { AddedToCart } from './components/added-to-cart';
 
 export const Product = () => {
-  const { params } = useRoute();
+  const { params } = useRoute<RouteProp<'Product'>>();
 
   const { goBack, navigate } = useNavigation();
 
   const { data, isLoading, isError } = {
-    data: {},
+    data: {
+      price: 299.99,
+    },
     isLoading: false,
     isError: false,
   };
@@ -37,6 +42,9 @@ export const Product = () => {
   // });
 
   console.log({ params, data });
+
+  const { getItemQuantity } = useShoppingCart();
+  const quantity = getItemQuantity(params.id);
 
   // ref
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
@@ -182,116 +190,15 @@ export const Product = () => {
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
         >
-          <View className="flex-1 items-center px-6">
-            <View className="relative mb-5">
-              <Image
-                className="h-[100px] w-[100px]"
-                source="@/images/tick-circle.svg"
-              />
-            </View>
-            <View className="mb-[30px] flex w-full flex-col items-center gap-[5px]">
-              <Text className="text-2xl text-dark" weight="bold">
-                Added to cart
-              </Text>
-              <Text variant="sm">1 Item Total</Text>
-            </View>
-            <View className="mt-auto mb-0 flex w-full flex-row justify-between bg-white py-4">
-              <View className="">
-                <TouchableOpacity
-                  className="flex flex-row items-center rounded-full border border-light-200 bg-transparent py-4 px-[42.5px]"
-                  onPress={() => {
-                    navigate('Discover');
-                  }}
-                  activeOpacity={0.6}
-                >
-                  <Text
-                    variant="sm"
-                    className="mx-auto uppercase text-dark"
-                    weight="bold"
-                  >
-                    Back Explore
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View>
-                <TouchableOpacity
-                  className="flex flex-row items-center rounded-full bg-dark py-4 px-[54px]"
-                  onPress={() => {
-                    navigate('Cart');
-                  }}
-                  activeOpacity={0.6}
-                >
-                  <Text
-                    variant="sm"
-                    className="mx-auto uppercase text-light"
-                    weight="bold"
-                  >
-                    To Cart
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          {/* <View className="flex-1 px-6">
-            <View className="mb-[30px] flex w-full flex-row justify-between">
-              <Text variant="xl" className="text-dark"
-              weight="bold"
-              
-              >
-                Add to cart
-              </Text>
-              <Pressable onPress={() => {}} className="rotate-45 p-2">
-                <Add size="18" color={colors.dark.DEFAULT} />
-              </Pressable>
-            </View>
-            <Text variant="sm" className="text-dark mb-2.5"
-              weight="bold"
-            
-            >
-              Quantity
-            </Text>
-            <View className="relative mb-[30px]">
-              <Input className="py-0" keyboardType="number-pad" label="" />
-              <View className="absolute right-0 bottom-2 z-10 flex flex-row items-center space-x-5 bg-white">
-                <Pressable onPress={() => {}} className="p-2">
-                  <MinusCirlce size="24" color={colors.dark.DEFAULT} />
-                </Pressable>
-                <Pressable onPress={() => {}} className="p-2">
-                  <AddCircle size="24" color={colors.dark.DEFAULT} />
-                </Pressable>
-              </View>
-            </View>
-            <View className="bg-dark h-px" />
-            <View className=" flex flex-row justify-between bg-white py-4">
-              <View className="flex flex-col">
-                <Text variant="xs" className="text-light-300 mb-[5px]">
-                  Price
-                </Text>
-                <Text variant="xl" className="text-dark"
-              weight="bold"
-                
-                >
-                  $235.00
-                </Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  className="bg-dark flex flex-row items-center rounded-full py-4 px-8"
-                  onPress={handlePresentModalPress}
-                  activeOpacity={0.6}
-                >
-                  <Text
-                    variant="sm"
-                    className="text-light mx-auto uppercase"
-              weight="bold"
-
-                  >
-                    ADD TO CART
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View> */}
+          {quantity > 0 ? (
+            <AddedToCart quantity={quantity} />
+          ) : (
+            <AddItemToCart
+              productId={params.id}
+              quantity={quantity}
+              price={data.price}
+            />
+          )}
         </BottomSheetModal>
       </View>
     </BottomSheetModalProvider>

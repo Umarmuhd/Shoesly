@@ -13,6 +13,8 @@ import { APIProvider } from '@/api';
 import { hydrateAuth, loadSelectedTheme } from '@/core';
 import { RootNavigator } from '@/navigation';
 
+import { ShoppingCartProvider } from './context/shopping-cart';
+
 hydrateAuth();
 loadSelectedTheme();
 SplashScreen.preventAutoHideAsync();
@@ -27,14 +29,16 @@ const App = () => {
   }
 
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <BottomSheetModalProvider>
-        <APIProvider>
-          <RootNavigator />
-          <FlashMessage position="top" />
-        </APIProvider>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+    <ShoppingCartProvider>
+      <GestureHandlerRootView style={styles.container}>
+        <BottomSheetModalProvider>
+          <APIProvider>
+            <RootNavigator />
+            <FlashMessage position="top" />
+          </APIProvider>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </ShoppingCartProvider>
   );
 };
 

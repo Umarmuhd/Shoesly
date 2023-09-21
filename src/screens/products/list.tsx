@@ -5,6 +5,7 @@ import { Bag2, Setting4 } from 'iconsax-react-native';
 import React from 'react';
 
 import type { Product } from '@/api/products/types';
+import products from '@/data/items.json';
 import {
   colors,
   EmptyList,
@@ -17,82 +18,9 @@ import {
 
 import { ProductCard } from './card';
 
-const sampleData = [
-  {
-    id: '1',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 250,
-  },
-  {
-    id: '2',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '3',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '4',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '5',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '6',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '7',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '8',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '9',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-  {
-    id: '10',
-    name: 'Jordan 1 Retro High Tie Dye',
-    description:
-      "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ",
-    price: 200,
-  },
-];
-
 export const Discover = () => {
   const { data, isLoading, isError } = {
-    data: sampleData,
+    data: products,
     isLoading: false,
     isError: false,
   };
