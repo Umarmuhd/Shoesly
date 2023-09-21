@@ -9,7 +9,6 @@ import * as React from 'react';
 
 import Star from '@/images/star.svg';
 // import { usePost } from '@/api';
-import type { RouteProp } from '@/navigation/types';
 import {
   ActivityIndicator,
   FocusAwareStatusBar,
@@ -24,9 +23,9 @@ import colors from '@/ui/theme/colors';
 import ProductReviewsList from '../reviews/review-list';
 
 export const Product = () => {
-  const { params } = useRoute<RouteProp<'Product'>>();
+  const { params } = useRoute();
 
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
 
   const { data, isLoading, isError } = {
     data: {},
@@ -82,7 +81,7 @@ export const Product = () => {
           </Pressable>
           <Pressable
             onPress={() => {
-              // navigate('Cart');
+              navigate('Cart');
             }}
             className="p-2"
           >
@@ -131,7 +130,7 @@ export const Product = () => {
               <TouchableOpacity
                 className="flex flex-row items-center rounded-full border border-light-200 py-4"
                 onPress={() => {
-                  // navigate('ProductReviews');
+                  navigate('ProductReviews', { id: params.id });
                 }}
                 activeOpacity={0.6}
               >

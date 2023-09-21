@@ -4,14 +4,29 @@ import React, { useEffect } from 'react';
 
 import { useAuth } from '@/core';
 import { useIsFirstTime } from '@/core/hooks';
-import { Onboarding } from '@/screens';
+import { AddPost, Discover, Feed, Post, Product } from '@/screens';
 import CartScreen from '@/screens/cart/list';
+import OrderSummaryScreen from '@/screens/orders/order';
+import ProductsFilterScreen from '@/screens/products/filter';
 import { ProductReviewsScreen } from '@/screens/reviews';
 
-import { AuthNavigator } from './auth-navigator';
 import { NavigationContainer } from './navigation-container';
-import { TabNavigator } from './tab-navigator';
-const Stack = createNativeStackNavigator();
+
+export type StackParamList = {
+  Discover: undefined;
+  Product: { id: string };
+  ProductFilter: undefined;
+  ProductReviews: { id: string };
+  Cart: undefined;
+  OrderSummary: { id: string };
+
+  //
+  Feed: undefined;
+  Post: { id: number };
+  AddPost: undefined;
+};
+
+const Stack = createNativeStackNavigator<StackParamList>();
 
 export const Root = () => {
   const status = useAuth.use.status();
@@ -25,6 +40,8 @@ export const Root = () => {
     }
   }, [hideSplash, status]);
 
+  console.log({ isFirstTime });
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -33,19 +50,16 @@ export const Root = () => {
         animation: 'none',
       }}
     >
-      {isFirstTime ? (
-        <Stack.Screen name="Onboarding" component={Onboarding} />
-      ) : (
-        <Stack.Group>
-          {status === 'signOut' ? (
-            <Stack.Screen name="Auth" component={AuthNavigator} />
-          ) : (
-            <Stack.Screen name="App" component={TabNavigator} />
-          )}
-        </Stack.Group>
-      )}
+      <Stack.Screen name="Discover" component={Discover} />
+      <Stack.Screen name="ProductFilter" component={ProductsFilterScreen} />
+      <Stack.Screen name="Product" component={Product} />
       <Stack.Screen name="ProductReviews" component={ProductReviewsScreen} />
       <Stack.Screen name="Cart" component={CartScreen} />
+      <Stack.Screen name="OrderSummary" component={OrderSummaryScreen} />
+      {/*  */}
+      <Stack.Screen name="Feed" component={Feed} />
+      <Stack.Screen name="Post" component={Post} />
+      <Stack.Screen name="AddPost" component={AddPost} />
     </Stack.Navigator>
   );
 };
