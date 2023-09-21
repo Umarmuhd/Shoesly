@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 import { useAuth } from '@/core';
 import { useIsFirstTime } from '@/core/hooks';
-import { AddPost, Discover, Feed, Post, Product } from '@/screens';
+import { AddPost, Discover, Feed, Post, ProductScreen } from '@/screens';
 import CartScreen from '@/screens/cart/list';
 import OrderSummaryScreen from '@/screens/orders/order';
 import ProductsFilterScreen from '@/screens/products/filter';
@@ -52,7 +52,7 @@ export const Root = () => {
     >
       <Stack.Screen name="Discover" component={Discover} />
       <Stack.Screen name="ProductFilter" component={ProductsFilterScreen} />
-      <Stack.Screen name="Product" component={Product} />
+      <Stack.Screen name="Product" component={ProductScreen} />
       <Stack.Screen name="ProductReviews" component={ProductReviewsScreen} />
       <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="OrderSummary" component={OrderSummaryScreen} />

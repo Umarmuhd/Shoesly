@@ -1,11 +1,12 @@
 /* eslint-disable max-lines-per-function */
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { Bag2, Setting4 } from 'iconsax-react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type { Product } from '@/api/products/types';
-import products from '@/data/items.json';
+import { db } from '@/libs/firebase';
 import {
   colors,
   EmptyList,
@@ -19,11 +20,36 @@ import {
 import { ProductCard } from './card';
 
 export const Discover = () => {
-  const { data, isLoading, isError } = {
-    data: products,
-    isLoading: false,
-    isError: false,
-  };
+  const [productsList, setProductsList] = useState<Product[]>([]);
+  // const [isInitialLoad, setIsInitialLoad] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+  // const [limit, setLimit] = useState<number>(5);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      onSnapshot(
+        collection(db, 'products'),
+        (snapshot) => {
+          const result = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setProductsList(result as Product[]);
+          setIsLoading(false);
+        },
+        (err) => {
+          console.log(err);
+          setError('Error fetching data!');
+        },
+        () => {
+          console.log('completed');
+        }
+      );
+    };
+    fetchData();
+  }, []);
 
   const { navigate } = useNavigation();
 
@@ -37,10 +63,10 @@ export const Discover = () => {
     [navigate]
   );
 
-  if (isError) {
+  if (error) {
     return (
       <View>
-        <Text> Error Loading data </Text>
+        <Text> {error} </Text>
       </View>
     );
   }
@@ -65,7 +91,7 @@ export const Discover = () => {
         </View>
         <View className="flex-1">
           <FlashList
-            data={data}
+            data={productsList}
             renderItem={renderItem}
             keyExtractor={(_, index) => `item-${index}`}
             ListEmptyComponent={<EmptyList isLoading={isLoading} />}

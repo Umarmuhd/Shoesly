@@ -4,11 +4,15 @@ import {
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { doc, getDoc } from 'firebase/firestore';
 import { ArrowLeft, Bag2 } from 'iconsax-react-native';
 import * as React from 'react';
 
+import type { Product } from '@/api/products/types';
 import { useShoppingCart } from '@/context/shopping-cart';
 import Star from '@/images/star.svg';
+import { db } from '@/libs/firebase';
+import { formatCurrency } from '@/libs/utils';
 import type { RouteProp } from '@/navigation/types';
 // import { usePost } from '@/api';
 import {
@@ -25,23 +29,38 @@ import ProductReviewsList from '../reviews/review-list';
 import { AddItemToCart } from './components/add-to-cart';
 import { AddedToCart } from './components/added-to-cart';
 
-export const Product = () => {
+export const ProductScreen = () => {
   const { params } = useRoute<RouteProp<'Product'>>();
 
   const { goBack, navigate } = useNavigation();
 
-  const { data, isLoading, isError } = {
-    data: {
-      price: 299.99,
-    },
-    isLoading: false,
-    isError: false,
-  };
-  // const { data, isLoading, isError } = usePost({
-  //   variables: { id: params.id },
-  // });
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
+  const [product, setProduct] = React.useState<Product | null>(null);
 
-  console.log({ params, data });
+  React.useEffect(() => {
+    const docRef = doc(db, 'products', params.id);
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          console.log('Document data:', docSnap.data());
+          setProduct(docSnap.data() as Product);
+        } else {
+          throw new Error('No such document!');
+        }
+      } catch (err) {
+        console.log('Error getting document:', err);
+        setError('Error fetching data!');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [params.id]);
+
+  console.log({ params, product });
 
   const { getItemQuantity } = useShoppingCart();
   const quantity = getItemQuantity(params.id);
@@ -68,12 +87,12 @@ export const Product = () => {
     );
   }
 
-  if (isError) {
+  if (error) {
     return (
       <View className="flex-1 justify-center">
         <FocusAwareStatusBar />
         <Text variant="md" className="text-center">
-          Error loading product
+          {error}
         </Text>
       </View>
     );
@@ -99,7 +118,7 @@ export const Product = () => {
         <View className="mt-[30px] flex flex-col space-y-[30px]">
           <View className="">
             <Text className="mb-2.5 text-xl" weight="bold">
-              Jordan 1 Retro High Tie DyeText
+              {product?.name}
             </Text>
             <View className="flex flex-row space-x-[5px] text-cyan-700">
               <Star width={12} height={12} fill={'#FCD240'} />
@@ -126,9 +145,7 @@ export const Product = () => {
               Description
             </Text>
             <Text variant="sm" className="text-light-400">
-              Engineered to crush any movement-based workout, these On sneakers
-              enhance the label's original Cloud sneaker with cutting edge
-              technologies for a pair.
+              {product?.description}
             </Text>
           </View>
           <View className="flex">
@@ -165,7 +182,7 @@ export const Product = () => {
               Price
             </Text>
             <Text variant="xl" className="text-dark" weight="bold">
-              $235.00
+              {formatCurrency(product?.price ?? 0)}
             </Text>
           </View>
           <View>
@@ -196,7 +213,7 @@ export const Product = () => {
             <AddItemToCart
               productId={params.id}
               quantity={quantity}
-              price={data.price}
+              price={product?.price ?? 0}
             />
           )}
         </BottomSheetModal>
