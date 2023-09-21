@@ -89,8 +89,8 @@ export const Product = () => {
           </Pressable>
         </View>
         <View className="mt-[30px] flex flex-col space-y-[30px]">
-          <View>
-            <Text variant="xl" className="mb-2.5 font-bold">
+          <View className="font-bold">
+            <Text className="mb-2.5 text-xl font-semibold">
               Jordan 1 Retro High Tie DyeText
             </Text>
             <View className="flex flex-row space-x-[5px] text-cyan-700">
