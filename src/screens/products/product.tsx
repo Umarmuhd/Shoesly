@@ -66,6 +66,8 @@ export const ProductScreen = () => {
 
   console.log({ params, product });
 
+  console.log(product?.reviews);
+
   const { getItemQuantity } = useShoppingCart();
   const quantity = getItemQuantity(params.id);
 
@@ -101,6 +103,8 @@ export const ProductScreen = () => {
       </View>
     );
   }
+
+  if (!product) return null;
 
   return (
     <BottomSheetModalProvider>
@@ -162,7 +166,7 @@ export const ProductScreen = () => {
               Review (1045)
             </Text>
             <View className="h-80">
-              <ProductReviewsList />
+              <ProductReviewsList reviews={product?.reviews ?? []} />
               <TouchableOpacity
                 className="flex flex-row items-center rounded-full border border-light-200 py-4"
                 onPress={() => {

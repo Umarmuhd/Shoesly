@@ -66,7 +66,7 @@ export const ProductReviewsScreen = () => {
         </View>
       </View>
       <View className="flex-1">
-        <ProductReviewsList />
+        <ProductReviewsList reviews={[]} />
       </View>
     </View>
   );

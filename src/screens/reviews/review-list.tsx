@@ -1,57 +1,20 @@
-// import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 
-import { EmptyList, Text, View } from '@/ui';
+import type { Review } from '@/api/reviews/types';
+import { Text, View } from '@/ui';
 
 import { ProductReviewCard } from './review-card';
 
-const sample = [
-  {
-    id: '1',
-    user: {
-      name: 'Nolan Carder',
-      avatar: require('../../../assets/images/users/nolan-carder.png'),
-    },
-    content: 'Perfect for keeping your feet dry and warm in damp conditions.',
-    rating: 5,
-    date_time: '2023-09-19T20:12:29.808Z',
-  },
-  {
-    id: '2',
-    user: {
-      name: 'Maria Saris',
-      avatar: require('../../../assets/images/users/maria-saris.png'),
-    },
-    content: 'Perfect for keeping your feet dry and warm in damp conditions.',
-    rating: 5,
-    date_time: '2023-09-19T20:12:29.808Z',
-  },
-  {
-    id: '3',
-    user: {
-      name: 'Gretchen Septimus',
-      avatar: require('../../../assets/images/users/gretchen-septimus.png'),
-    },
-    content: 'Perfect for keeping your feet dry and warm in damp conditions.',
-    rating: 5,
-    date_time: '2023-09-19T20:12:29.808Z',
-  },
-];
-
-export default function ProductReviewsList() {
-  const { data, isLoading, isError } = {
-    data: sample,
-    isLoading: false,
+export default function ProductReviewsList({ reviews }: { reviews: Review[] }) {
+  const { isError } = {
     isError: false,
   };
 
-  // const { navigate } = useNavigation();
-
-  // const renderItem = React.useCallback(
-  //   ({ item }: { item: Review }) => <ProductReviewCard {...item} />,
-  //   []
-  // );
+  const renderItem = React.useCallback(
+    ({ item }: { item: Review }) => <ProductReviewCard {...item} />,
+    []
+  );
 
   if (isError) {
     return (
@@ -64,11 +27,9 @@ export default function ProductReviewsList() {
   return (
     <View className="flex-1">
       <FlashList
-        data={data}
-        // renderItem={renderItem}
-        renderItem={({ item }) => <ProductReviewCard {...item} />}
+        data={reviews}
+        renderItem={renderItem}
         keyExtractor={(_, index) => `review-${index}`}
-        ListEmptyComponent={<EmptyList isLoading={isLoading} />}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={36}
       />
