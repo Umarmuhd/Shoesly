@@ -6,6 +6,7 @@ import { Bag2, Setting4 } from 'iconsax-react-native';
 import React, { useEffect, useState } from 'react';
 
 import type { Product } from '@/api/products/types';
+import { useShoppingCart } from '@/context/shopping-cart';
 import { db } from '@/libs/firebase';
 import {
   colors,
@@ -20,6 +21,7 @@ import {
 import { ProductCard } from './card';
 
 export const Discover = () => {
+  const { cartItems } = useShoppingCart();
   const [productsList, setProductsList] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -76,7 +78,9 @@ export const Discover = () => {
             Discover
           </Text>
           <Pressable onPress={() => navigate('Cart')} className="relative">
-            <View className="absolute top-1 right-0 z-10 h-2 w-2 rounded-full bg-danger" />
+            {cartItems.length > 0 && (
+              <View className="absolute top-1 right-0 z-10 h-2 w-2 rounded-full bg-danger" />
+            )}
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
         </View>

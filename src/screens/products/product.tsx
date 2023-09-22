@@ -35,6 +35,7 @@ const IMAGE_WIDTH = 290;
 
 export const ProductScreen = () => {
   const { params } = useRoute<RouteProp<'Product'>>();
+  const { cartItems } = useShoppingCart();
 
   const { goBack, navigate } = useNavigation();
 
@@ -114,7 +115,10 @@ export const ProductScreen = () => {
           <Pressable onPress={goBack} className="">
             <ArrowLeft size="24" color={colors.dark.DEFAULT} />
           </Pressable>
-          <Pressable onPress={() => navigate('Cart')}>
+          <Pressable onPress={() => navigate('Cart')} className="relative">
+            {cartItems.length > 0 && (
+              <View className="absolute top-1 right-0 z-10 h-2 w-2 rounded-full bg-danger" />
+            )}
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
         </View>
