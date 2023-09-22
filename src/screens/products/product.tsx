@@ -141,10 +141,10 @@ export const ProductScreen = () => {
               <Star width={12} height={12} fill={'#F3F3F3'} />
 
               <Text className="text-[11px] leading-[14px]" weight="bold">
-                4.5
+                {product.avg_rating}
               </Text>
               <Text className="text-[11px] leading-[14px] text-light-300">
-                (1045 Reviews)
+                ({product.num_of_reviews} Reviews)
               </Text>
             </View>
           </View>
@@ -163,14 +163,14 @@ export const ProductScreen = () => {
           </View>
           <View className="flex">
             <Text variant="md" className="mb-2.5 font-semibold">
-              Review (1045)
+              Review ({product.num_of_reviews})
             </Text>
             <View className="h-80">
               <ProductReviewsList reviews={product?.reviews ?? []} />
               <TouchableOpacity
                 className="flex flex-row items-center rounded-full border border-light-200 py-4"
                 onPress={() => {
-                  navigate('ProductReviews', { id: 'params.id' });
+                  navigate('ProductReviews', { id: params.id });
                 }}
                 activeOpacity={0.6}
               >

@@ -18,4 +18,6 @@ export type Product = {
     logo: string;
   };
   reviews: Review[];
+  avg_rating: number;
+  num_of_reviews: number;
 };

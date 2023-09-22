@@ -1,14 +1,25 @@
-import { useNavigation } from '@react-navigation/native';
+/* eslint-disable max-lines-per-function */
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowLeft } from 'iconsax-react-native';
 import React, { useState } from 'react';
 
+import type { Review } from '@/api/reviews/types';
 import Star from '@/images/star.svg';
+import type { RouteProp } from '@/navigation/types';
 import { colors, Pressable, Text, View } from '@/ui';
 
 import ProductReviewsList from './review-list';
 import ReviewFilter from './reviews-filter';
 
 export const ProductReviewsScreen = () => {
+  const { params } = useRoute<RouteProp<'ProductReviews'>>();
+
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  console.log({ params });
+
   const filters = [
     {
       id: 'all',
@@ -37,6 +48,7 @@ export const ProductReviewsScreen = () => {
   ];
   const [activeFilter, setActiveFilter] = useState(filters[0]);
   const { goBack } = useNavigation();
+
   return (
     <View className="min-h-screen bg-white px-6">
       <View className="mt-4 flex flex-row items-center justify-between">
@@ -47,7 +59,7 @@ export const ProductReviewsScreen = () => {
           <Text className="font-semibold text-dark">Reviews</Text>
         </View>
         <View className="flex flex-row gap-[5px]">
-          <Star width={20} height={20} />
+          <Star width={20} height={20} fill={'#FCD240'} />
           <Text variant="sm" className="text-dark" weight="bold">
             4.5
           </Text>

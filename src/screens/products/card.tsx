@@ -1,9 +1,8 @@
-import { getDownloadURL, ref } from 'firebase/storage';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import type { Product } from '@/api/products/types';
 import Star from '@/images/star.svg';
-import { storage } from '@/libs/firebase';
+// import { storage } from '@/libs/firebase';
 import { Image, Pressable, Text, View } from '@/ui';
 
 type Props = Product & { onPress?: () => void };
@@ -11,19 +10,21 @@ type Props = Product & { onPress?: () => void };
 export const ProductCard = ({
   name,
   price,
-  brand,
+  // brand,
   image,
+  avg_rating,
+  num_of_reviews,
   onPress = () => {},
 }: Props) => {
-  const [brandImage, setBrandImage] = useState('');
-  console.log({ brandImage, brand });
+  // const [brandImage, setBrandImage] = useState('');
+  // console.log({ brandImage, brand });
 
-  useEffect(() => {
-    getDownloadURL(ref(storage, brand.logo)).then((res) => {
-      console.log(res);
-      setBrandImage(res);
-    });
-  }, [brand.logo]);
+  // useEffect(() => {
+  //   getDownloadURL(ref(storage, brand.logo)).then((res) => {
+  //     console.log(res);
+  //     setBrandImage(res);
+  //   });
+  // }, [brand.logo]);
 
   return (
     <Pressable className="block overflow-hidden shadow-xl" onPress={onPress}>
@@ -41,10 +42,10 @@ export const ProductCard = ({
         <View className="flex flex-row space-x-[5px]">
           <Star width={12} height={12} fill={'#FCD240'} />
           <Text className="text-[11px] leading-[14px]" weight="bold">
-            4.5
+            {avg_rating}
           </Text>
           <Text className="text-[11px] leading-[14px] !text-light-300">
-            (1045 Reviews)
+            ({num_of_reviews} Reviews)
           </Text>
         </View>
         <Text variant="sm" className="" weight="bold" numberOfLines={1}>
