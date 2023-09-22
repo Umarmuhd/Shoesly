@@ -1,10 +1,12 @@
 /* eslint-disable max-lines-per-function */
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { doc, getDoc } from 'firebase/firestore';
 import { ArrowLeft } from 'iconsax-react-native';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import type { Review } from '@/api/reviews/types';
 import Star from '@/images/star.svg';
+import { db } from '@/libs/firebase';
 import type { RouteProp } from '@/navigation/types';
 import { colors, Pressable, Text, View } from '@/ui';
 
@@ -17,6 +19,7 @@ export const ProductReviewsScreen = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [avgRating, setAvgRating] = useState(0);
 
   console.log({ params });
 
@@ -49,6 +52,54 @@ export const ProductReviewsScreen = () => {
   const [activeFilter, setActiveFilter] = useState(filters[0]);
   const { goBack } = useNavigation();
 
+  React.useEffect(() => {
+    const docRef = doc(db, 'products', params.id);
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          console.log('Document data:', docSnap.data());
+          setAvgRating(docSnap.data().avg_rating);
+          setReviews(docSnap.data().reviews as Review[]);
+        } else {
+          throw new Error('No such document!');
+        }
+      } catch (err) {
+        console.log('Error getting document:', err);
+        setError('Error fetching data!');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [params.id]);
+
+  const filtered = useMemo(() => {
+    return reviews.filter((review) => {
+      if (activeFilter.id === 'all') {
+        return review;
+      }
+      return review.rating === parseInt(activeFilter.id.split('-')[0], 10);
+    });
+  }, [activeFilter, reviews]);
+
+  if (error) {
+    return (
+      <View>
+        <Text> {error} </Text>
+      </View>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <View className="flex-1 flex-row items-center justify-center">
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <View className="min-h-screen bg-white px-6">
       <View className="mt-4 flex flex-row items-center justify-between">
@@ -61,7 +112,7 @@ export const ProductReviewsScreen = () => {
         <View className="flex flex-row gap-[5px]">
           <Star width={20} height={20} fill={'#FCD240'} />
           <Text variant="sm" className="text-dark" weight="bold">
-            4.5
+            {avgRating}
           </Text>
         </View>
       </View>
@@ -78,7 +129,7 @@ export const ProductReviewsScreen = () => {
         </View>
       </View>
       <View className="flex-1">
-        <ProductReviewsList reviews={[]} />
+        <ProductReviewsList reviews={filtered} />
       </View>
     </View>
   );

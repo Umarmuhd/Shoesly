@@ -32,7 +32,11 @@ const ReviewFilter = ({ filters, activeFilter, setActiveFilter }: Props) => {
               onPress={() => setActiveFilter({ ...cat })}
               className="flex items-center space-y-1"
             >
-              <Text variant="xl" style={{ color: activeButtonClass }}>
+              <Text
+                variant="xl"
+                className="font-bold"
+                style={{ color: activeButtonClass }}
+              >
                 {cat.name}
               </Text>
             </TouchableOpacity>
