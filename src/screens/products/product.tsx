@@ -7,7 +7,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { doc, getDoc } from 'firebase/firestore';
 import { ArrowLeft, Bag2 } from 'iconsax-react-native';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
 
 import type { Product } from '@/api/products/types';
 import { useShoppingCart } from '@/context/shopping-cart';
@@ -110,7 +109,7 @@ export const ProductScreen = () => {
     <BottomSheetModalProvider>
       <View className="min-h-screen flex-1 bg-white px-6">
         <FocusAwareStatusBar />
-        <View className="mt-4 flex flex-row items-center justify-between">
+        <View className="mt-4 mb-10 flex flex-row items-center justify-between">
           <Pressable onPress={goBack} className="">
             <ArrowLeft size="24" color={colors.dark.DEFAULT} />
           </Pressable>
@@ -118,17 +117,16 @@ export const ProductScreen = () => {
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
         </View>
-        <View className="relative">
+        <View className="relative mb-[30px]">
           <Image
             style={{
-              ...StyleSheet.absoluteFillObject,
-              height: IMAGE_WIDTH / 1.6,
+              height: IMAGE_WIDTH,
             }}
             source={product?.image}
-            className="w-full"
+            className="relative w-full object-contain"
           />
         </View>
-        <View className="mt-[30px] flex flex-col space-y-[30px]">
+        <View className="flex flex-col space-y-[30px]">
           <View className="">
             <Text className="mb-2.5 text-xl" weight="bold">
               {product?.name}
@@ -161,29 +159,31 @@ export const ProductScreen = () => {
               {product?.description}
             </Text>
           </View>
-          <View className="flex">
-            <Text variant="md" className="mb-2.5 font-semibold">
-              Review ({product.num_of_reviews})
-            </Text>
-            <View className="h-80">
-              <ProductReviewsList reviews={product?.reviews ?? []} />
-              <TouchableOpacity
-                className="flex flex-row items-center rounded-full border border-light-200 py-4"
-                onPress={() => {
-                  navigate('ProductReviews', { id: params.id });
-                }}
-                activeOpacity={0.6}
-              >
-                <Text
-                  variant="sm"
-                  className="mx-auto uppercase text-dark"
-                  weight="bold"
+          {product.reviews?.length && (
+            <View className="flex">
+              <Text variant="md" className="mb-2.5 font-semibold">
+                Review ({product.num_of_reviews})
+              </Text>
+              <View className="h-80">
+                <ProductReviewsList reviews={product?.reviews ?? []} />
+                <TouchableOpacity
+                  className="flex flex-row items-center rounded-full border border-light-200 py-4"
+                  onPress={() => {
+                    navigate('ProductReviews', { id: params.id });
+                  }}
+                  activeOpacity={0.6}
                 >
-                  See All Review
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    variant="sm"
+                    className="mx-auto uppercase text-dark"
+                    weight="bold"
+                  >
+                    See All Review
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          )}
         </View>
         <View className="mt-auto mb-0 flex flex-row justify-between bg-white py-4">
           <View className="flex flex-col">
