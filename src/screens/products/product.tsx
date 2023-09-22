@@ -20,6 +20,7 @@ import {
   FocusAwareStatusBar,
   Image,
   Pressable,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -117,74 +118,76 @@ export const ProductScreen = () => {
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
         </View>
-        <View className="relative mb-[30px]">
-          <Image
-            style={{
-              height: IMAGE_WIDTH,
-            }}
-            source={product?.image}
-            className="relative w-full object-contain"
-          />
-        </View>
-        <View className="flex flex-col space-y-[30px]">
-          <View className="">
-            <Text className="mb-2.5 text-xl" weight="bold">
-              {product?.name}
-            </Text>
-            <View className="flex flex-row space-x-[5px] text-cyan-700">
-              <Star width={12} height={12} fill={'#FCD240'} />
-              <Star width={12} height={12} fill={'#FCD240'} />
-              <Star width={12} height={12} fill={'#FCD240'} />
-              <Star width={12} height={12} fill={'#FCD240'} />
-              <Star width={12} height={12} fill={'#F3F3F3'} />
+        <ScrollView className="flex" showsVerticalScrollIndicator={false}>
+          <View className="relative mb-[30px]">
+            <Image
+              style={{
+                height: IMAGE_WIDTH,
+              }}
+              source={product?.image}
+              className="relative w-full object-contain"
+            />
+          </View>
+          <View className="flex flex-col space-y-[30px]">
+            <View className="">
+              <Text className="mb-2.5 text-xl" weight="bold">
+                {product?.name}
+              </Text>
+              <View className="flex flex-row space-x-[5px] text-cyan-700">
+                <Star width={12} height={12} fill={'#FCD240'} />
+                <Star width={12} height={12} fill={'#FCD240'} />
+                <Star width={12} height={12} fill={'#FCD240'} />
+                <Star width={12} height={12} fill={'#FCD240'} />
+                <Star width={12} height={12} fill={'#F3F3F3'} />
 
-              <Text className="text-[11px] leading-[14px]" weight="bold">
-                {product.avg_rating}
-              </Text>
-              <Text className="text-[11px] leading-[14px] text-light-300">
-                ({product.num_of_reviews} Reviews)
-              </Text>
-            </View>
-          </View>
-          <View className="">
-            <Text variant="md" className="font-semibold">
-              Size
-            </Text>
-          </View>
-          <View className="">
-            <Text variant="md" className="mb-2.5 font-semibold">
-              Description
-            </Text>
-            <Text variant="sm" className="text-light-400">
-              {product?.description}
-            </Text>
-          </View>
-          {product.reviews?.length && (
-            <View className="flex">
-              <Text variant="md" className="mb-2.5 font-semibold">
-                Review ({product.num_of_reviews})
-              </Text>
-              <View className="h-80">
-                <ProductReviewsList reviews={product?.reviews ?? []} />
-                <TouchableOpacity
-                  className="flex flex-row items-center rounded-full border border-light-200 py-4"
-                  onPress={() => {
-                    navigate('ProductReviews', { id: params.id });
-                  }}
-                  activeOpacity={0.6}
-                >
-                  <Text
-                    variant="sm"
-                    className="mx-auto uppercase text-dark"
-                    weight="bold"
-                  >
-                    See All Review
-                  </Text>
-                </TouchableOpacity>
+                <Text className="text-[11px] leading-[14px]" weight="bold">
+                  {product.avg_rating}
+                </Text>
+                <Text className="text-[11px] leading-[14px] text-light-300">
+                  ({product.num_of_reviews} Reviews)
+                </Text>
               </View>
             </View>
-          )}
-        </View>
+            <View className="">
+              <Text variant="md" className="font-semibold">
+                Size
+              </Text>
+            </View>
+            <View className="">
+              <Text variant="md" className="mb-2.5 font-semibold">
+                Description
+              </Text>
+              <Text variant="sm" className="text-light-400">
+                {product?.description}
+              </Text>
+            </View>
+            {product.reviews?.length && (
+              <View className="flex">
+                <Text variant="md" className="mb-2.5 font-semibold">
+                  Review ({product.num_of_reviews})
+                </Text>
+                <View className="h-80">
+                  <ProductReviewsList reviews={product?.reviews ?? []} />
+                  <TouchableOpacity
+                    className="flex flex-row items-center rounded-full border border-light-200 py-4"
+                    onPress={() => {
+                      navigate('ProductReviews', { id: params.id });
+                    }}
+                    activeOpacity={0.6}
+                  >
+                    <Text
+                      variant="sm"
+                      className="mx-auto uppercase text-dark"
+                      weight="bold"
+                    >
+                      See All Review
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          </View>
+        </ScrollView>
         <View className="mt-auto mb-0 flex flex-row justify-between bg-white py-4">
           <View className="flex flex-col">
             <Text
