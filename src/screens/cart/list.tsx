@@ -48,10 +48,14 @@ export default function CartScreen() {
         </View>
         <View>
           <TouchableOpacity
-            className="flex flex-row items-center rounded-full bg-dark py-4 px-8"
+            className={
+              'flex flex-row items-center rounded-full bg-dark py-4 px-8 ' +
+              (cartItems.length === 0 ? 'opacity-50' : 'opacity-100')
+            }
             onPress={() => {
               navigate('OrderSummary', { id: 'orderSummary' });
             }}
+            disabled={cartItems.length === 0}
             activeOpacity={0.6}
           >
             <Text
