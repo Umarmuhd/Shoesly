@@ -4,7 +4,6 @@ import React from 'react';
 import Swipelist from 'react-native-swipeable-list-view';
 
 import { useShoppingCart } from '@/context/shopping-cart';
-import products from '@/data/items.json';
 import { formatCurrency } from '@/libs/utils';
 import { colors, Pressable, Text, TouchableOpacity, View } from '@/ui';
 
@@ -13,7 +12,7 @@ import { HiddenItem } from './components/hidden-item';
 
 export default function CartScreen() {
   const { goBack, navigate } = useNavigation();
-  const { cartItems } = useShoppingCart();
+  const { cartItems, products } = useShoppingCart();
   return (
     <View className="min-h-screen max-w-[100%] flex-1 bg-white px-6">
       <View className="mt-4 flex flex-row items-center justify-between">

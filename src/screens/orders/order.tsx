@@ -4,7 +4,6 @@ import { ArrowLeft, ArrowRight2 } from 'iconsax-react-native';
 import * as React from 'react';
 
 import { useShoppingCart } from '@/context/shopping-cart';
-import products from '@/data/items.json';
 import { formatCurrency } from '@/libs/utils';
 import { Pressable, Text, TouchableOpacity, View } from '@/ui';
 import colors from '@/ui/theme/colors';
@@ -14,6 +13,7 @@ import { ProductItem } from './product-item';
 function OrderSummaryScreen() {
   const { goBack } = useNavigation();
   const { cartItems } = useShoppingCart();
+  const { products } = useShoppingCart();
 
   const subTotal = cartItems.reduce((total, cartItem) => {
     const item = products.find((i) => i.id === cartItem.id);

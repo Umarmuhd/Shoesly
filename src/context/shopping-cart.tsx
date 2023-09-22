@@ -1,5 +1,15 @@
 /* eslint-disable max-lines-per-function */
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+
+import type { Product } from '@/api/products/types';
+import { db } from '@/libs/firebase';
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -20,6 +30,8 @@ type ShoppingCartContext = {
   removeFromCart: (id: string) => void;
   cartQuantity: number;
   cartItems: CartItem[];
+  //
+  products: Product[];
 };
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -30,7 +42,33 @@ export function useShoppingCart() {
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
-  console.log({ isOpen });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  console.log({ isLoading, error, isOpen });
+
+  useEffect(() => {
+    const collectionRef = collection(db, 'products');
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const data = await getDocs(collectionRef);
+        const result = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setProducts(result as Product[]);
+      } catch (err) {
+        console.log(err);
+        setError('Error fetching data!');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
   //   "shopping-cart",
@@ -115,6 +153,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         closeCart,
         cartItems,
         cartQuantity,
+        products,
       }}
     >
       {children}

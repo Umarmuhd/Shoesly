@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { type CartItem, useShoppingCart } from '@/context/shopping-cart';
-import products from '@/data/items.json';
 import { formatCurrency } from '@/libs/utils';
 import { Image, Text, View } from '@/ui';
 import { CounterInput } from '@/ui/core/input/counter-input';
 
 export function CartItem({ id, quantity }: CartItem) {
   const { increaseCartQuantity, decreaseCartQuantity } = useShoppingCart();
+  const { products } = useShoppingCart();
 
   const item = products.find((i) => i.id === id);
   if (item == null) return null;
@@ -16,10 +16,8 @@ export function CartItem({ id, quantity }: CartItem) {
     <View className="my-2.5 flex flex-row">
       <View className="relative h-[88px] w-[88px] overflow-hidden rounded-[20px] object-cover">
         <Image
-          source={{
-            uri: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-          }}
-          className="relative h-full w-full object-cover"
+          source={item.image}
+          className="relative h-full w-full object-contain"
         />
       </View>
       <View className="ml-4 flex flex-1">

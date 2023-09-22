@@ -1,11 +1,12 @@
 import React from 'react';
 
-import type { CartItem } from '@/context/shopping-cart';
-import products from '@/data/items.json';
+import { type CartItem, useShoppingCart } from '@/context/shopping-cart';
 import { formatCurrency } from '@/libs/utils';
 import { Text, View } from '@/ui';
 
 export function ProductItem({ id, quantity }: CartItem) {
+  const { products } = useShoppingCart();
+
   const item = products.find((i) => i.id === id);
   if (item == null) return null;
   return (
