@@ -82,6 +82,7 @@
     "react-native-screens": "~3.22.1",
     "react-native-svg": "13.9.0",
     "react-native-swipeable-list-view": "^0.1.2",
+    "react-native-toast-message": "^2.1.6",
     "react-native-web": "~0.19.7",
     "react-query-kit": "^1.4.6",
     "tailwind-merge": "^1.14.0",

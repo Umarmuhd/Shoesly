@@ -27,7 +27,10 @@ export const ProductCard = ({
   // }, [brand.logo]);
 
   return (
-    <Pressable className="block overflow-hidden shadow-xl" onPress={onPress}>
+    <Pressable
+      className="block w-full overflow-hidden shadow-xl"
+      onPress={onPress}
+    >
       <View className="flex h-[150px] w-full flex-row items-center justify-center overflow-hidden rounded-[20px] bg-dark/5">
         <Image
           className="relative h-[80px] w-[120px] object-cover"

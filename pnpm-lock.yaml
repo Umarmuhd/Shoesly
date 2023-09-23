@@ -140,6 +140,9 @@ dependencies:
   react-native-swipeable-list-view:
     specifier: ^0.1.2
     version: 0.1.2(react-native@0.72.4)(react@18.2.0)
+  react-native-toast-message:
+    specifier: ^2.1.6
+    version: 2.1.6(react-native@0.72.4)(react@18.2.0)
   react-native-web:
     specifier: ~0.19.7
     version: 0.19.7(react-dom@18.2.0)(react@18.2.0)
@@ -13598,6 +13601,16 @@ packages:
   /react-native-swipeable-list-view@0.1.2(react-native@0.72.4)(react@18.2.0):
     resolution: {integrity: sha512-88RYC1NWPVlh2x9kYSYmbz5YLtmz7bbR4s5e03ZQ5o6t/lW08Mhd6eX7P25/BAeK1f/BwUUYRmo06dShRhgDOQ==}
     engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.4(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
+    dev: false
+
+  /react-native-toast-message@2.1.6(react-native@0.72.4)(react@18.2.0):
+    resolution: {integrity: sha512-VctXuq20vmRa9AE13acaNZhrLcS3FaBS2zEevS3+vhBsnVZYG0FIlWIis9tVnpnNxUb3ART+BWtwQjzSttXTng==}
     peerDependencies:
       react: '*'
       react-native: '*'

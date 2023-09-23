@@ -79,7 +79,7 @@ export const Discover = () => {
           </Text>
           <Pressable onPress={() => navigate('Cart')} className="relative">
             {cartItems.length > 0 && (
-              <View className="absolute top-1 right-0 z-10 h-2 w-2 rounded-full bg-danger" />
+              <View className="absolute top-1 right-0 z-20 h-2 w-2 rounded-full bg-danger" />
             )}
             <Bag2 size="24" color={colors.dark.DEFAULT} />
           </Pressable>
@@ -92,8 +92,7 @@ export const Discover = () => {
             ListEmptyComponent={<EmptyList isLoading={isLoading} />}
             estimatedItemSize={300}
             numColumns={2}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            ItemSeparatorComponent={() => <View className="h-4 w-4" />}
+            ItemSeparatorComponent={() => <View className="h-10" />}
             showsVerticalScrollIndicator={false}
           />
         </View>

@@ -1,18 +1,29 @@
 /* eslint-disable max-lines-per-function */
 import { useNavigation } from '@react-navigation/native';
+import { addDoc, collection } from 'firebase/firestore';
 import { ArrowLeft, ArrowRight2 } from 'iconsax-react-native';
 import * as React from 'react';
+import { showMessage } from 'react-native-flash-message';
 
 import { useShoppingCart } from '@/context/shopping-cart';
+import { db } from '@/libs/firebase';
 import { formatCurrency } from '@/libs/utils';
-import { Pressable, Text, TouchableOpacity, View } from '@/ui';
+import {
+  Pressable,
+  showErrorMessage,
+  Text,
+  TouchableOpacity,
+  View,
+} from '@/ui';
 import colors from '@/ui/theme/colors';
 
 import { ProductItem } from './product-item';
 
 function OrderSummaryScreen() {
-  const { goBack } = useNavigation();
-  const { cartItems } = useShoppingCart();
+  const { goBack, navigate } = useNavigation();
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const { cartItems, removeFromCart } = useShoppingCart();
   const { products } = useShoppingCart();
 
   const subTotal = cartItems.reduce((total, cartItem) => {
@@ -21,6 +32,39 @@ function OrderSummaryScreen() {
   }, 0);
 
   const shipment = 0;
+
+  async function createOrder() {
+    const payload = {
+      items: cartItems.map((item) => ({
+        product: item.id,
+        quantity: item.quantity,
+        price_per_unit: products.find((i) => i.id === item.id)?.price || 0,
+      })),
+      subTotal,
+      shipment,
+      total: subTotal + shipment,
+    };
+    console.log(payload);
+    try {
+      setIsLoading(true);
+
+      const collectionRef = collection(db, 'orders');
+
+      await addDoc(collectionRef, payload);
+      showMessage({
+        message: 'Order created!',
+        description: 'Order has been created successfully!',
+        type: 'success',
+      });
+      cartItems.forEach((item) => removeFromCart(item.id));
+      navigate('Discover');
+    } catch (error) {
+      console.log('🚀 ~ file: order.tsx:59 ~ createOrder ~ error', error);
+      showErrorMessage('Creating order failed!');
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <View className="flex-1 bg-white px-6">
@@ -123,9 +167,13 @@ function OrderSummaryScreen() {
         </View>
         <View>
           <TouchableOpacity
-            className="flex flex-row items-center rounded-full bg-dark py-4 px-8"
-            onPress={() => {}}
+            className={
+              'flex flex-row items-center rounded-full bg-dark py-4 px-8 ' +
+              (isLoading ? 'opacity-50' : '')
+            }
+            onPress={createOrder}
             activeOpacity={0.6}
+            disabled={isLoading}
           >
             <Text
               variant="sm"
