@@ -66,6 +66,27 @@ function OrderSummaryScreen() {
     }
   }
 
+  async function createProduct() {
+    const payload = {};
+    console.log(payload);
+    try {
+      setIsLoading(true);
+
+      const collectionRef = collection(db, 'products');
+
+      await addDoc(collectionRef, payload);
+      showMessage({
+        message: 'Product created!',
+        description: 'Product has been created successfully!',
+        type: 'success',
+      });
+    } catch (error) {
+      console.log('🚀 ~ file: order.tsx:59 ~ createOrder ~ error', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <View className="flex-1 bg-white px-6">
       <View className="mt-2.5 flex flex-row items-center justify-between">
